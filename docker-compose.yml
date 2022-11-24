@@ -290,6 +290,7 @@ services:
       - OTEL_COLLECTOR_HOST
       - FLAGD_HOST
       - FLAGD_PORT
+      - GRAFANA_FARO_ENDPOINT
     depends_on:
       ad:
         condition: service_started
@@ -758,6 +759,9 @@ services:
         condition: service_healthy
     logging: *logging
     environment:
+      - GRAFANA_OTLP_ENDPOINT
+      - GRAFANA_INSTANCE_ID
+      - GRAFANA_CLOUD_APIKEY
       - ENVOY_PORT
       - HOST_FILESYSTEM
       - OTEL_COLLECTOR_HOST

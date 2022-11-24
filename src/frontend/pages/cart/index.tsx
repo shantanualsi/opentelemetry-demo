@@ -1,8 +1,10 @@
 // Copyright The OpenTelemetry Authors
 // SPDX-License-Identifier: Apache-2.0
 
+import { faro } from '@grafana/faro-web-sdk';
 import { NextPage } from 'next';
 import Head from 'next/head';
+import { useEffect } from 'react';
 import Footer from '../../components/Footer';
 import Layout from '../../components/Layout';
 import Recommendations from '../../components/Recommendations';
@@ -16,6 +18,12 @@ const Cart: NextPage = () => {
   const {
     cart: { items },
   } = useCart();
+
+  useEffect(() => {
+    faro.api?.pushEvent('page', {
+      name: 'Cart',
+    });
+  });
 
   return (
     <AdProvider
