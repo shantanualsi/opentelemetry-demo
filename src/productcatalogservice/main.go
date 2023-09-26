@@ -13,6 +13,7 @@ import (
 	"net"
 	"os"
 	"os/signal"
+	"regexp"
 	"strings"
 	"sync"
 	"syscall"
@@ -51,6 +52,7 @@ var (
 	catalog           []*pb.Product
 	resource          *sdkresource.Resource
 	initResourcesOnce sync.Once
+	podNamePattern    = regexp.MustCompile(`-(productcatalogservice[0-9]*)-`)
 )
 
 func init() {
@@ -304,6 +306,45 @@ func (p *productCatalog) checkProductFailure(ctx context.Context, id string) boo
 	)
 	return failureEnabled
 }
+
+//todo check
+//func (p *productCatalog) checkProductFailure(ctx context.Context, id string) bool {
+//	if id != "OLJCESPC7Z" || p.featureFlagSvcAddr == "" {
+//		return false
+//	}
+//
+//	conn, err := createClient(ctx, p.featureFlagSvcAddr)
+//	if err != nil {
+//		span := trace.SpanFromContext(ctx)
+//		span.AddEvent("error", trace.WithAttributes(attribute.String("message", "Feature Flag Connection Failed")))
+//		return false
+//	}
+//	defer conn.Close()
+//
+//	podName := os.Getenv("OTEL_K8S_POD_NAME")
+//	if podName != "" {
+//		name := podNamePattern.FindStringSubmatch(podName)
+//		if len(name) > 1 && name[1] != "" && getFeatureFlag(ctx, conn, "fail-"+name[1]) {
+//			return true
+//		}
+//	}
+//
+//	return getFeatureFlag(ctx, conn, "productCatalogFailure")
+//}
+//
+//func getFeatureFlag(ctx context.Context, conn *grpc.ClientConn, flagName string) bool {
+//	ffResponse, err := pb.NewFeatureFlagServiceClient(conn).GetFlag(ctx, &pb.GetFlagRequest{
+//		Name: flagName,
+//	})
+//
+//	if err != nil {
+//		span := trace.SpanFromContext(ctx)
+//		span.AddEvent("error", trace.WithAttributes(attribute.String("message", fmt.Sprintf("GetFlag Failed: %s", flagName))))
+//		return false
+//	}
+//
+//	return ffResponse.GetFlag().Enabled
+//}
 
 func createClient(ctx context.Context, svcAddr string) (*grpc.ClientConn, error) {
 	return grpc.DialContext(ctx, svcAddr,
