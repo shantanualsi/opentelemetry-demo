@@ -145,6 +145,9 @@ services:
       - OTEL_EXPORTER_OTLP_METRICS_TEMPORALITY_PREFERENCE
       - OTEL_RESOURCE_ATTRIBUTES
       - OTEL_SERVICE_NAME=checkout
+      - GRAFANA_PYROSCOPE_ADDR
+      - GRAFANA_PYROSCOPE_AUTH_USER
+      - GRAFANA_PYROSCOPE_AUTH_PASS
     depends_on:
       cart:
         condition: service_started
