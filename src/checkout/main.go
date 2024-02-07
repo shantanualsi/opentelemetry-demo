@@ -122,6 +122,14 @@ func initMeterProvider() *sdkmetric.MeterProvider {
 }
 
 func initProfilerProvider() *pyroscope.Profiler {
+	resource := initResource()
+
+	tags := map[string]string{}
+	val, ok := resource.Set().Value("service.namespace")
+	if ok && val.Type() == attribute.STRING {
+		tags["namespace"] = val.AsString()
+	}
+
 	stdruntime.SetMutexProfileFraction(5)
 	stdruntime.SetBlockProfileRate(5)
 
@@ -136,7 +144,7 @@ func initProfilerProvider() *pyroscope.Profiler {
 		BasicAuthUser:     os.Getenv("GRAFANA_PYROSCOPE_AUTH_USER"),
 		BasicAuthPassword: os.Getenv("GRAFANA_PYROSCOPE_AUTH_PASS"),
 		Logger:            log,
-		Tags:              map[string]string{},
+		Tags:              tags,
 		ProfileTypes: []pyroscope.ProfileType{
 			pyroscope.ProfileCPU,
 			pyroscope.ProfileAllocObjects,
