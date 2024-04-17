@@ -5,6 +5,7 @@ go 1.22
 require (
 	github.com/IBM/sarama v1.43.1
 	github.com/google/uuid v1.6.0
+	github.com/grafana/pyroscope-go v1.1.1
 	github.com/open-feature/go-sdk v1.10.0
 	github.com/open-feature/go-sdk-contrib/hooks/open-telemetry v0.3.1
 	github.com/open-feature/go-sdk-contrib/providers/flagd v0.1.22
@@ -43,6 +44,7 @@ require (
 	github.com/gogo/protobuf v1.3.2 // indirect
 	github.com/golang/snappy v0.0.4 // indirect
 	github.com/google/gofuzz v1.2.0 // indirect
+	github.com/grafana/pyroscope-go/godeltaprof v0.1.6 // indirect
 	github.com/grpc-ecosystem/grpc-gateway/v2 v2.19.1 // indirect
 	github.com/hashicorp/errwrap v1.1.0 // indirect
 	github.com/hashicorp/go-multierror v1.1.1 // indirect
