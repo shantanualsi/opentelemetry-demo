@@ -339,8 +339,21 @@ func (p *productCatalog) checkProductFailure(ctx context.Context, id string) boo
 	}
 
 	client := openfeature.NewClient("productCatalog")
+
+	podName := os.Getenv("OTEL_K8S_POD_NAME")
+	if podName != "" {
+		name := podNamePattern.FindStringSubmatch(podName)
+		if len(name) > 1 && name[1] != "" && getFeatureFlag(ctx, client, "fail-"+name[1]) {
+			return true
+		}
+	}
+
+	return getFeatureFlag(ctx, client, "productCatalogFailure")
+}
+
+func getFeatureFlag(ctx context.Context, client *openfeature.Client, flagName string) bool {
 	failureEnabled, _ := client.BooleanValue(
-		ctx, "productCatalogFailure", false, openfeature.EvaluationContext{},
+		ctx, flagName, false, openfeature.EvaluationContext{},
 	)
 	return failureEnabled
 }
