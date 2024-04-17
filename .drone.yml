@@ -16,6 +16,8 @@ trigger:
 steps:
 - name: adservice-docker
   image: plugins/gcr
+  environment:
+    DOCKER_BUILDKIT: 1
   settings:
     dockerfile: ./src/adservice/Dockerfile
     registry: us.gcr.io
@@ -27,6 +29,8 @@ steps:
       from_secret: gcr_credentials
 - name: checkoutservice-docker
   image: plugins/gcr
+  environment:
+    DOCKER_BUILDKIT: 1
   settings:
     dockerfile: ./src/checkoutservice/Dockerfile
     registry: us.gcr.io
@@ -38,6 +42,8 @@ steps:
       from_secret: gcr_credentials
 - name: frauddetectionservice-docker
   image: plugins/gcr
+  environment:
+    DOCKER_BUILDKIT: 1
   settings:
     dockerfile: ./src/frauddetectionservice/Dockerfile
     registry: us.gcr.io
@@ -49,6 +55,8 @@ steps:
       from_secret: gcr_credentials
 - name: productcatalogservice-docker
   image: plugins/gcr
+  environment:
+    DOCKER_BUILDKIT: 1
   settings:
     dockerfile: ./src/productcatalogservice/Dockerfile
     registry: us.gcr.io
@@ -60,6 +68,8 @@ steps:
       from_secret: gcr_credentials
 - name: frontend-docker
   image: plugins/gcr
+  environment:
+    DOCKER_BUILDKIT: 1
   settings:
     dockerfile: ./src/frontend/Dockerfile.ci
     registry: us.gcr.io
@@ -100,6 +110,6 @@ get:
 
 ---
 kind: signature
-hmac: 0c235dbf3a239c315ce96a2d0ddf90a1123dbce344fbf81c1732d67c72d4de80
+hmac: 4c6abe54b8639e0f8982f0d6939aa3b98bb391461b59d59ec8cb3b262fc727c4
 
 ...
