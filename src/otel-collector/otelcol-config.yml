@@ -98,6 +98,10 @@ exporters:
     endpoint: "http://prometheus:9090/api/v1/otlp"
     tls:
       insecure: true
+  otlphttp/loki:
+    endpoint: "http://loki:3100/otlp"
+    tls:
+      insecure: true
   opensearch:
     logs_index: otel
     http:
@@ -132,4 +136,4 @@ service:
     logs:
       receivers: [otlp]
       processors: [batch]
-      exporters: [opensearch, debug]
+      exporters: [otlphttp/loki, debug]
