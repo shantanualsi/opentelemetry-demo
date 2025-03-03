@@ -2,6 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import { NextPage } from 'next';
+import Head from 'next/head';
 import Footer from '../components/Footer';
 import Layout from '../components/Layout';
 import ProductList from '../components/ProductList';
@@ -16,9 +17,10 @@ import { useEffect } from 'react';
 
 const Home: NextPage = () => {
   const { selectedCurrency } = useCurrency();
-  const { data: productList = [] } = useQuery(['products', selectedCurrency], () =>
-    ApiGateway.listProducts(selectedCurrency)
-  );
+  const { data: productList = [] } = useQuery({
+    queryKey: ['products', selectedCurrency],
+    queryFn: () => ApiGateway.listProducts(selectedCurrency),
+  });
 
   useEffect(() => {
     faro.api?.pushEvent('page', {
@@ -28,6 +30,9 @@ const Home: NextPage = () => {
 
   return (
     <Layout>
+      <Head>
+        <title>Otel Demo - Home</title>
+      </Head>
       <S.Home data-cy={CypressFields.HomePage}>
         <Banner />
         <S.Container>

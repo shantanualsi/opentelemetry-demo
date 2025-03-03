@@ -3,6 +3,7 @@
 
 import { faro } from '@grafana/faro-web-sdk';
 import { NextPage } from 'next';
+import Head from 'next/head';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { useCallback, useState, useEffect } from 'react';
@@ -50,13 +51,12 @@ const ProductDetail: NextPage = () => {
       priceUsd = { units: 0, currencyCode: 'USD', nanos: 0 },
       categories,
     } = {} as Product,
-  } = useQuery(
-    ['product', productId, 'selectedCurrency', selectedCurrency],
-    () => ApiGateway.getProduct(productId, selectedCurrency),
-    {
+  } = useQuery({
+      queryKey: ['product', productId, 'selectedCurrency', selectedCurrency],
+      queryFn: () => ApiGateway.getProduct(productId, selectedCurrency),
       enabled: !!productId,
     }
-  );
+  ) as { data: Product };
 
   const onAddItem = useCallback(async () => {
     faro.api?.pushEvent('add-to-cart', {
@@ -76,6 +76,9 @@ const ProductDetail: NextPage = () => {
       productIds={[productId, ...items.map(({ productId }) => productId)]}
       contextKeys={[...new Set(categories)]}
     >
+      <Head>
+        <title>Otel Demo - Product</title>
+      </Head>
       <Layout>
         <S.ProductDetail data-cy={CypressFields.ProductDetail}>
           <S.Container>
@@ -99,7 +102,7 @@ const ProductDetail: NextPage = () => {
                 ))}
               </Select>
               <S.AddToCart data-cy={CypressFields.ProductAddToCart} onClick={onAddItem}>
-                <Image src="/icons/Cart.svg" height="15px" width="15px" alt="cart" /> Add To Cart
+                <Image src="/icons/Cart.svg" height="15" width="15" alt="cart" /> Add To Cart
               </S.AddToCart>
             </S.Details>
           </S.Container>

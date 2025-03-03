@@ -3,6 +3,7 @@
 
 import { faro } from '@grafana/faro-web-sdk';
 import { NextPage } from 'next';
+import Head from 'next/head';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
@@ -32,6 +33,9 @@ const Checkout: NextPage = () => {
       productIds={items.map(({ item }) => item?.productId || '')}
       contextKeys={[...new Set(items.flatMap(({ item }) => item.product.categories))]}
     >
+      <Head>
+        <title>Otel Demo - Checkout</title>
+      </Head>
       <Layout>
         <S.Checkout>
           <S.Container>

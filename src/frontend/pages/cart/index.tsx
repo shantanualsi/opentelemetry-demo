@@ -4,6 +4,7 @@
 import { faro } from '@grafana/faro-web-sdk';
 import { NextPage } from 'next';
 import { useEffect } from 'react';
+import Head from 'next/head';
 import Footer from '../../components/Footer';
 import Layout from '../../components/Layout';
 import Recommendations from '../../components/Recommendations';
@@ -29,6 +30,9 @@ const Cart: NextPage = () => {
       productIds={items.map(({ productId }) => productId)}
       contextKeys={[...new Set(items.flatMap(({ product }) => product.categories))]}
     >
+      <Head>
+        <title>Otel Demo - Cart</title>
+      </Head>
       <Layout>
         <S.Cart>
           {(!!items.length && <CartDetail />) || <EmptyCart />}

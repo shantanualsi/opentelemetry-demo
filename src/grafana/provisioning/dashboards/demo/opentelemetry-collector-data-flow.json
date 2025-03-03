@@ -27,15 +27,39 @@
   "graphTooltip": 0,
   "id": 6,
   "links": [],
-  "liveNow": false,
   "panels": [
+    {
+      "fieldConfig": {
+        "defaults": {},
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 2,
+        "w": 24,
+        "x": 0,
+        "y": 0
+      },
+      "id": 56,
+      "options": {
+        "code": {
+          "language": "plaintext",
+          "showLineNumbers": false,
+          "showMiniMap": false
+        },
+        "content": "This dashboard is used to understand the data flows for the OpenTelemetry Collector's metrics and traces pipelines.\n<br>\nChart panels may require 5 minutes after the Demo is started before rendering data.",
+        "mode": "html"
+      },
+      "pluginVersion": "11.4.0",
+      "title": "",
+      "type": "text"
+    },
     {
       "collapsed": false,
       "gridPos": {
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 0
+        "y": 2
       },
       "id": 8,
       "panels": [],
@@ -74,7 +98,7 @@
         "h": 4,
         "w": 3,
         "x": 0,
-        "y": 1
+        "y": 3
       },
       "id": 6,
       "options": {
@@ -82,6 +106,7 @@
         "graphMode": "area",
         "justifyMode": "center",
         "orientation": "auto",
+        "percentChangeColorMode": "standard",
         "reduceOptions": {
           "calcs": [
             "lastNotNull"
@@ -89,9 +114,11 @@
           "fields": "",
           "values": false
         },
-        "textMode": "auto"
+        "showPercentChange": false,
+        "textMode": "auto",
+        "wideLayout": true
       },
-      "pluginVersion": "9.1.0",
+      "pluginVersion": "11.4.0",
       "targets": [
         {
           "datasource": {
@@ -99,7 +126,7 @@
             "uid": "webstore-metrics"
           },
           "editorMode": "code",
-          "expr": "count(count(otelcol_process_cpu_seconds{service_instance_id=~\".*\"}) by (service_instance_id))",
+          "expr": "count(count(otelcol_process_cpu_seconds_total{service_instance_id=~\".*\"}) by (service_instance_id))",
           "legendFormat": "__auto",
           "range": true,
           "refId": "A"
@@ -141,10 +168,12 @@
         "h": 4,
         "w": 3,
         "x": 3,
-        "y": 1
+        "y": 3
       },
       "id": 24,
       "options": {
+        "minVizHeight": 75,
+        "minVizWidth": 75,
         "orientation": "auto",
         "reduceOptions": {
           "calcs": [
@@ -154,9 +183,10 @@
           "values": false
         },
         "showThresholdLabels": false,
-        "showThresholdMarkers": true
+        "showThresholdMarkers": true,
+        "sizing": "auto"
       },
-      "pluginVersion": "9.1.0",
+      "pluginVersion": "11.4.0",
       "targets": [
         {
           "datasource": {
@@ -164,7 +194,7 @@
             "uid": "webstore-metrics"
           },
           "editorMode": "code",
-          "expr": "avg(rate(otelcol_process_cpu_seconds{}[$__rate_interval])*100) by (instance)",
+          "expr": "avg(rate(otelcol_process_cpu_seconds_total{}[$__rate_interval])*100) by (instance)",
           "legendFormat": "__auto",
           "range": true,
           "refId": "A"
@@ -206,10 +236,12 @@
         "h": 4,
         "w": 3,
         "x": 6,
-        "y": 1
+        "y": 3
       },
       "id": 38,
       "options": {
+        "minVizHeight": 75,
+        "minVizWidth": 75,
         "orientation": "auto",
         "reduceOptions": {
           "calcs": [
@@ -219,9 +251,10 @@
           "values": false
         },
         "showThresholdLabels": false,
-        "showThresholdMarkers": true
+        "showThresholdMarkers": true,
+        "sizing": "auto"
       },
-      "pluginVersion": "9.1.0",
+      "pluginVersion": "11.4.0",
       "targets": [
         {
           "datasource": {
@@ -239,16 +272,16 @@
       "type": "gauge"
     },
     {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "webstore-metrics"
-      },
       "description": "",
+      "fieldConfig": {
+        "defaults": {},
+        "overrides": []
+      },
       "gridPos": {
         "h": 4,
         "w": 15,
         "x": 9,
-        "y": 1
+        "y": 3
       },
       "id": 32,
       "options": {
@@ -260,7 +293,8 @@
         "content": "## Opentelemetry Collector Data Ingress/Egress\n\n`service_version:` ${service_version}\n\n`opentelemetry collector:` contrib\n\n",
         "mode": "markdown"
       },
-      "pluginVersion": "9.1.0",
+      "pluginVersion": "11.4.0",
+      "title": "",
       "type": "text"
     },
     {
@@ -269,7 +303,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 5
+        "y": 7
       },
       "id": 10,
       "panels": [],
@@ -326,10 +360,12 @@
         "h": 19,
         "w": 3,
         "x": 0,
-        "y": 6
+        "y": 8
       },
       "id": 55,
       "options": {
+        "minVizHeight": 75,
+        "minVizWidth": 75,
         "orientation": "vertical",
         "reduceOptions": {
           "calcs": [
@@ -339,9 +375,10 @@
           "values": false
         },
         "showThresholdLabels": false,
-        "showThresholdMarkers": false
+        "showThresholdMarkers": false,
+        "sizing": "auto"
       },
-      "pluginVersion": "9.1.0",
+      "pluginVersion": "11.4.0",
       "targets": [
         {
           "datasource": {
@@ -350,7 +387,7 @@
           },
           "editorMode": "code",
           "exemplar": false,
-          "expr": "avg(sum by(job) (rate(otelcol_exporter_sent_spans{}[$__range])))",
+          "expr": "avg(sum by(job) (rate(otelcol_exporter_sent_spans_total{}[$__range])))",
           "format": "time_series",
           "hide": true,
           "instant": false,
@@ -364,7 +401,7 @@
             "uid": "webstore-metrics"
           },
           "editorMode": "code",
-          "expr": "avg(sum by(job) (rate(otelcol_receiver_accepted_spans{}[$__range])))",
+          "expr": "avg(sum by(job) (rate(otelcol_receiver_accepted_spans_total{}[$__range])))",
           "format": "time_series",
           "hide": true,
           "legendFormat": "__auto",
@@ -377,7 +414,7 @@
             "uid": "webstore-metrics"
           },
           "editorMode": "code",
-          "expr": "(avg(sum by(job) (rate(otelcol_exporter_sent_spans{}[$__range]))) / avg(sum by(job) (rate(otelcol_receiver_accepted_spans{}[$__range])))) ",
+          "expr": "(avg(sum by(job) (rate(otelcol_exporter_sent_spans_total{}[$__range]))) / avg(sum by(job) (rate(otelcol_receiver_accepted_spans_total{}[$__range])))) ",
           "hide": false,
           "legendFormat": "__auto",
           "range": true,
@@ -385,7 +422,6 @@
         }
       ],
       "title": "Export Ratio",
-      "transformations": [],
       "type": "gauge"
     },
     {
@@ -393,18 +429,24 @@
         "type": "prometheus",
         "uid": "webstore-metrics"
       },
+      "fieldConfig": {
+        "defaults": {},
+        "overrides": []
+      },
       "gridPos": {
         "h": 11,
         "w": 21,
         "x": 3,
-        "y": 6
+        "y": 8
       },
       "id": 4,
       "options": {
+        "edges": {},
         "nodes": {
           "mainStatUnit": "flops"
         }
       },
+      "pluginVersion": "11.4.0",
       "targets": [
         {
           "datasource": {
@@ -413,7 +455,7 @@
           },
           "editorMode": "code",
           "exemplar": false,
-          "expr": "label_join(label_join(\n(rate(otelcol_receiver_accepted_spans{}[$__interval]))\n, \"id\", \"\", \"transport\", \"receiver\")\n, \"title\", \"\", \"transport\", \"receiver\")\n\nor\n\nlabel_replace(label_replace(\nsum by(service_name) (rate(otelcol_receiver_accepted_spans{}[$__interval]))\n, \"id\", \"processor\", \"dummynode\", \"\")\n, \"title\", \"processor\", \"dummynode\", \"\")\n\nor\nlabel_replace(label_replace(\n(rate(otelcol_processor_batch_batch_send_size_count{}[$__interval]))\n, \"id\", \"$0\", \"processor\", \".*\")\n, \"title\", \"$0\", \"processor\", \".*\")\n\nor\nlabel_replace(label_replace(\nsum by(exporter) (rate(otelcol_exporter_sent_spans{}[$__interval]))\n, \"id\", \"exporter\", \"dummynode\", \"\")\n, \"title\", \"exporter\", \"dummynode\", \"\")\n        \nor\nlabel_replace(label_replace(\nsum by(exporter) (rate(otelcol_exporter_sent_spans{}[$__interval]))\n, \"id\", \"$0\", \"exporter\", \".*\")\n, \"title\", \"$0\", \"exporter\", \".*\")",
+          "expr": "label_join(label_join(\n(rate(otelcol_receiver_accepted_spans_total{}[$__interval]))\n, \"id\", \"\", \"transport\", \"receiver\")\n, \"title\", \"\", \"transport\", \"receiver\")\n\nor\n\nlabel_replace(label_replace(\nsum by(service_name) (rate(otelcol_receiver_accepted_spans_total{}[$__interval]))\n, \"id\", \"processor\", \"dummynode\", \"\")\n, \"title\", \"processor\", \"dummynode\", \"\")\n\nor\nlabel_replace(label_replace(\n(rate(otelcol_processor_batch_batch_send_size_count{}[$__interval]))\n, \"id\", \"$0\", \"processor\", \".*\")\n, \"title\", \"$0\", \"processor\", \".*\")\n\nor\nlabel_replace(label_replace(\nsum by(exporter) (rate(otelcol_exporter_sent_spans_total{}[$__interval]))\n, \"id\", \"exporter\", \"dummynode\", \"\")\n, \"title\", \"exporter\", \"dummynode\", \"\")\n        \nor\nlabel_replace(label_replace(\nsum by(exporter) (rate(otelcol_exporter_sent_spans_total{}[$__interval]))\n, \"id\", \"$0\", \"exporter\", \".*\")\n, \"title\", \"$0\", \"exporter\", \".*\")",
           "format": "table",
           "instant": true,
           "legendFormat": "__auto",
@@ -427,7 +469,7 @@
           },
           "editorMode": "code",
           "exemplar": false,
-          "expr": "label_join(\nlabel_replace(label_join(\n(rate(otelcol_receiver_accepted_spans{}[$__interval]))\n\n ,\"source\",\"\",\"transport\",\"receiver\")\n,\"target\",\"processor\",\"\",\"\")\n,\"id\",\"-\",\"source\",\"target\")\n\n  or\n\n  label_join(\nlabel_replace(label_replace(\n  (rate(otelcol_processor_batch_batch_send_size_count{}[$__interval]))\n ,\"source\",\"processor\",\"\",\"\")\n,\"target\",\"$0\",\"processor\",\".*\")\n,\"id\",\"-\",\"source\",\"target\")\n\nor\n  label_join(\nlabel_replace(label_replace(\n    (rate(otelcol_processor_batch_batch_send_size_count{}[$__interval]))\n ,\"source\",\"$0\",\"processor\",\".*\")\n,\"target\",\"exporter\",\"\",\"\")\n,\"id\",\"-\",\"source\",\"target\")\n\nor\n  label_join(\nlabel_replace(label_replace(\n   (rate(otelcol_exporter_sent_spans{}[$__interval]))\n ,\"source\",\"exporter\",\"\",\"\")\n,\"target\",\"$0\",\"exporter\",\".*\")\n,\"id\",\"-\",\"source\",\"target\")\n\n",
+          "expr": "label_join(\nlabel_replace(label_join(\n(rate(otelcol_receiver_accepted_spans_total{}[$__interval]))\n\n ,\"source\",\"\",\"transport\",\"receiver\")\n,\"target\",\"processor\",\"\",\"\")\n,\"id\",\"-\",\"source\",\"target\")\n\n  or\n\n  label_join(\nlabel_replace(label_replace(\n  (rate(otelcol_processor_batch_batch_send_size_count{}[$__interval]))\n ,\"source\",\"processor\",\"\",\"\")\n,\"target\",\"$0\",\"processor\",\".*\")\n,\"id\",\"-\",\"source\",\"target\")\n\nor\n  label_join(\nlabel_replace(label_replace(\n    (rate(otelcol_processor_batch_batch_send_size_count{}[$__interval]))\n ,\"source\",\"$0\",\"processor\",\".*\")\n,\"target\",\"exporter\",\"\",\"\")\n,\"id\",\"-\",\"source\",\"target\")\n\nor\n  label_join(\nlabel_replace(label_replace(\n   (rate(otelcol_exporter_sent_spans_total{}[$__interval]))\n ,\"source\",\"exporter\",\"\",\"\")\n,\"target\",\"$0\",\"exporter\",\".*\")\n,\"id\",\"-\",\"source\",\"target\")\n\n",
           "format": "table",
           "hide": false,
           "instant": true,
@@ -436,7 +478,7 @@
           "refId": "edges"
         }
       ],
-      "transformations": [],
+      "title": "",
       "type": "nodeGraph"
     },
     {
@@ -469,7 +511,7 @@
         "h": 5,
         "w": 5,
         "x": 3,
-        "y": 17
+        "y": 19
       },
       "id": 12,
       "options": {
@@ -477,6 +519,7 @@
         "graphMode": "area",
         "justifyMode": "auto",
         "orientation": "horizontal",
+        "percentChangeColorMode": "standard",
         "reduceOptions": {
           "calcs": [
             "lastNotNull"
@@ -484,9 +527,11 @@
           "fields": "",
           "values": false
         },
-        "textMode": "auto"
+        "showPercentChange": false,
+        "textMode": "auto",
+        "wideLayout": true
       },
-      "pluginVersion": "9.1.0",
+      "pluginVersion": "11.4.0",
       "targets": [
         {
           "datasource": {
@@ -494,7 +539,7 @@
             "uid": "webstore-metrics"
           },
           "editorMode": "code",
-          "expr": "sum(rate(otelcol_receiver_accepted_spans{}[$__rate_interval])) by (receiver,transport)",
+          "expr": "sum(rate(otelcol_receiver_accepted_spans_total{}[$__rate_interval])) by (receiver,transport)",
           "legendFormat": "{{receiver}}-{{transport}}",
           "range": true,
           "refId": "A"
@@ -531,10 +576,12 @@
         "h": 5,
         "w": 3,
         "x": 8,
-        "y": 17
+        "y": 19
       },
       "id": 13,
       "options": {
+        "minVizHeight": 75,
+        "minVizWidth": 75,
         "orientation": "horizontal",
         "reduceOptions": {
           "calcs": [
@@ -544,9 +591,10 @@
           "values": false
         },
         "showThresholdLabels": false,
-        "showThresholdMarkers": true
+        "showThresholdMarkers": true,
+        "sizing": "auto"
       },
-      "pluginVersion": "9.1.0",
+      "pluginVersion": "11.4.0",
       "targets": [
         {
           "datasource": {
@@ -554,7 +602,7 @@
             "uid": "webstore-metrics"
           },
           "editorMode": "code",
-          "expr": "sum(rate(otelcol_receiver_accepted_spans{}[$__rate_interval])) ",
+          "expr": "sum(rate(otelcol_receiver_accepted_spans_total{}[$__rate_interval])) ",
           "legendFormat": "{{receiver}}-{{transport}}",
           "range": true,
           "refId": "A"
@@ -596,7 +644,7 @@
         "h": 5,
         "w": 5,
         "x": 11,
-        "y": 17
+        "y": 19
       },
       "id": 15,
       "options": {
@@ -604,6 +652,7 @@
         "graphMode": "area",
         "justifyMode": "auto",
         "orientation": "horizontal",
+        "percentChangeColorMode": "standard",
         "reduceOptions": {
           "calcs": [
             "lastNotNull"
@@ -611,10 +660,12 @@
           "fields": "",
           "values": false
         },
+        "showPercentChange": false,
         "text": {},
-        "textMode": "auto"
+        "textMode": "auto",
+        "wideLayout": true
       },
-      "pluginVersion": "9.1.0",
+      "pluginVersion": "11.4.0",
       "targets": [
         {
           "datasource": {
@@ -658,10 +709,12 @@
         "h": 5,
         "w": 3,
         "x": 16,
-        "y": 17
+        "y": 19
       },
       "id": 14,
       "options": {
+        "minVizHeight": 75,
+        "minVizWidth": 75,
         "orientation": "auto",
         "reduceOptions": {
           "calcs": [
@@ -671,9 +724,10 @@
           "values": false
         },
         "showThresholdLabels": false,
-        "showThresholdMarkers": true
+        "showThresholdMarkers": true,
+        "sizing": "auto"
       },
-      "pluginVersion": "9.1.0",
+      "pluginVersion": "11.4.0",
       "targets": [
         {
           "datasource": {
@@ -682,7 +736,7 @@
           },
           "editorMode": "code",
           "exemplar": false,
-          "expr": "sum(rate(otelcol_exporter_sent_spans{}[$__interval])) ",
+          "expr": "sum(rate(otelcol_exporter_sent_spans_total{}[$__interval])) ",
           "format": "time_series",
           "instant": false,
           "legendFormat": "{{processor}}",
@@ -722,7 +776,7 @@
         "h": 5,
         "w": 5,
         "x": 19,
-        "y": 17
+        "y": 19
       },
       "id": 30,
       "options": {
@@ -730,6 +784,7 @@
         "graphMode": "area",
         "justifyMode": "auto",
         "orientation": "horizontal",
+        "percentChangeColorMode": "standard",
         "reduceOptions": {
           "calcs": [
             "lastNotNull"
@@ -737,9 +792,11 @@
           "fields": "",
           "values": false
         },
-        "textMode": "auto"
+        "showPercentChange": false,
+        "textMode": "auto",
+        "wideLayout": true
       },
-      "pluginVersion": "9.1.0",
+      "pluginVersion": "11.4.0",
       "targets": [
         {
           "datasource": {
@@ -748,7 +805,7 @@
           },
           "editorMode": "code",
           "exemplar": false,
-          "expr": "sum(rate(otelcol_exporter_sent_spans{}[$__rate_interval])) by (exporter)",
+          "expr": "sum(rate(otelcol_exporter_sent_spans_total{}[$__rate_interval])) by (exporter)",
           "format": "time_series",
           "instant": false,
           "legendFormat": "{{processor}}",
@@ -788,7 +845,7 @@
         "h": 3,
         "w": 5,
         "x": 3,
-        "y": 22
+        "y": 24
       },
       "id": 17,
       "options": {
@@ -796,6 +853,7 @@
         "graphMode": "area",
         "justifyMode": "auto",
         "orientation": "horizontal",
+        "percentChangeColorMode": "standard",
         "reduceOptions": {
           "calcs": [
             "lastNotNull"
@@ -803,9 +861,11 @@
           "fields": "",
           "values": false
         },
-        "textMode": "auto"
+        "showPercentChange": false,
+        "textMode": "auto",
+        "wideLayout": true
       },
-      "pluginVersion": "9.1.0",
+      "pluginVersion": "11.4.0",
       "targets": [
         {
           "datasource": {
@@ -813,7 +873,7 @@
             "uid": "webstore-metrics"
           },
           "editorMode": "code",
-          "expr": "sum(rate(otelcol_receiver_refused_spans{}[$__rate_interval])) by (receiver,transport)",
+          "expr": "sum(rate(otelcol_receiver_refused_spans_total{}[$__rate_interval])) by (receiver,transport)",
           "legendFormat": "{{receiver}}-{{transport}}",
           "range": true,
           "refId": "A"
@@ -850,10 +910,12 @@
         "h": 3,
         "w": 3,
         "x": 8,
-        "y": 22
+        "y": 24
       },
       "id": 18,
       "options": {
+        "minVizHeight": 75,
+        "minVizWidth": 75,
         "orientation": "auto",
         "reduceOptions": {
           "calcs": [
@@ -863,9 +925,10 @@
           "values": false
         },
         "showThresholdLabels": false,
-        "showThresholdMarkers": true
+        "showThresholdMarkers": true,
+        "sizing": "auto"
       },
-      "pluginVersion": "9.1.0",
+      "pluginVersion": "11.4.0",
       "targets": [
         {
           "datasource": {
@@ -873,7 +936,7 @@
             "uid": "webstore-metrics"
           },
           "editorMode": "code",
-          "expr": "sum(rate(otelcol_receiver_refused_spans{}[$__rate_interval])) ",
+          "expr": "sum(rate(otelcol_receiver_refused_spans_total{}[$__rate_interval])) ",
           "legendFormat": "{{receiver}}-{{transport}}",
           "range": true,
           "refId": "A"
@@ -910,10 +973,12 @@
         "h": 3,
         "w": 3,
         "x": 16,
-        "y": 22
+        "y": 24
       },
       "id": 19,
       "options": {
+        "minVizHeight": 75,
+        "minVizWidth": 75,
         "orientation": "auto",
         "reduceOptions": {
           "calcs": [
@@ -923,9 +988,10 @@
           "values": false
         },
         "showThresholdLabels": false,
-        "showThresholdMarkers": true
+        "showThresholdMarkers": true,
+        "sizing": "auto"
       },
-      "pluginVersion": "9.1.0",
+      "pluginVersion": "11.4.0",
       "targets": [
         {
           "datasource": {
@@ -934,7 +1000,7 @@
           },
           "editorMode": "code",
           "exemplar": false,
-          "expr": "sum(rate(otelcol_exporter_send_failed_spans{}[$__rate_interval])) ",
+          "expr": "sum(rate(otelcol_exporter_send_failed_spans_total{}[$__rate_interval])) ",
           "format": "time_series",
           "instant": false,
           "legendFormat": "{{processor}}",
@@ -974,7 +1040,7 @@
         "h": 3,
         "w": 5,
         "x": 19,
-        "y": 22
+        "y": 24
       },
       "id": 20,
       "options": {
@@ -982,6 +1048,7 @@
         "graphMode": "area",
         "justifyMode": "auto",
         "orientation": "horizontal",
+        "percentChangeColorMode": "standard",
         "reduceOptions": {
           "calcs": [
             "lastNotNull"
@@ -989,9 +1056,11 @@
           "fields": "",
           "values": false
         },
-        "textMode": "auto"
+        "showPercentChange": false,
+        "textMode": "auto",
+        "wideLayout": true
       },
-      "pluginVersion": "9.1.0",
+      "pluginVersion": "11.4.0",
       "targets": [
         {
           "datasource": {
@@ -1000,7 +1069,7 @@
           },
           "editorMode": "code",
           "exemplar": false,
-          "expr": "sum(rate(otelcol_exporter_send_failed_spans{}[$__rate_interval])) by (exporter)",
+          "expr": "sum(rate(otelcol_exporter_send_failed_spans_total{}[$__rate_interval])) by (exporter)",
           "format": "time_series",
           "instant": false,
           "legendFormat": "{{processor}}",
@@ -1017,7 +1086,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 25
+        "y": 27
       },
       "id": 22,
       "panels": [],
@@ -1041,8 +1110,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "light-blue",
-                "value": null
+                "color": "light-blue"
               },
               {
                 "color": "semi-dark-red",
@@ -1074,10 +1142,12 @@
         "h": 19,
         "w": 3,
         "x": 0,
-        "y": 26
+        "y": 28
       },
       "id": 54,
       "options": {
+        "minVizHeight": 75,
+        "minVizWidth": 75,
         "orientation": "vertical",
         "reduceOptions": {
           "calcs": [
@@ -1087,9 +1157,10 @@
           "values": false
         },
         "showThresholdLabels": false,
-        "showThresholdMarkers": false
+        "showThresholdMarkers": false,
+        "sizing": "auto"
       },
-      "pluginVersion": "9.1.0",
+      "pluginVersion": "11.3.0",
       "targets": [
         {
           "datasource": {
@@ -1098,7 +1169,7 @@
           },
           "editorMode": "code",
           "exemplar": false,
-          "expr": "avg(sum by(job) (rate(otelcol_exporter_sent_metric_points{}[$__range])))",
+          "expr": "avg(sum by(job) (rate(otelcol_exporter_sent_metric_points_total{}[$__range])))",
           "format": "time_series",
           "hide": true,
           "instant": false,
@@ -1112,7 +1183,7 @@
             "uid": "webstore-metrics"
           },
           "editorMode": "code",
-          "expr": "avg(sum by(job) (rate(otelcol_receiver_accepted_metric_points{}[$__range])))",
+          "expr": "avg(sum by(job) (rate(otelcol_receiver_accepted_metric_points_total{}[$__range])))",
           "format": "time_series",
           "hide": true,
           "legendFormat": "__auto",
@@ -1125,7 +1196,7 @@
             "uid": "webstore-metrics"
           },
           "editorMode": "code",
-          "expr": "( avg(sum by(job) (rate(otelcol_exporter_sent_metric_points{}[$__range]))) /avg(sum by(job) (rate(otelcol_receiver_accepted_metric_points{}[$__range]))))",
+          "expr": "( avg(sum by(job) (rate(otelcol_exporter_sent_metric_points_total{}[$__range]))) /avg(sum by(job) (rate(otelcol_receiver_accepted_metric_points_total{}[$__range]))))",
           "hide": false,
           "legendFormat": "__auto",
           "range": true,
@@ -1177,18 +1248,24 @@
         "uid": "webstore-metrics"
       },
       "description": "Metrics Signalling Pipelines",
+      "fieldConfig": {
+        "defaults": {},
+        "overrides": []
+      },
       "gridPos": {
         "h": 11,
         "w": 21,
         "x": 3,
-        "y": 26
+        "y": 28
       },
       "id": 25,
       "options": {
+        "edges": {},
         "nodes": {
           "mainStatUnit": "flops"
         }
       },
+      "pluginVersion": "11.3.0",
       "targets": [
         {
           "datasource": {
@@ -1197,7 +1274,7 @@
           },
           "editorMode": "code",
           "exemplar": false,
-          "expr": "\nlabel_join(label_join(\n(rate(otelcol_receiver_accepted_metric_points{}[$__interval]))\n, \"id\", \"\", \"transport\", \"receiver\")\n, \"title\", \"\", \"transport\", \"receiver\")\n\nor\n\nlabel_replace(label_replace(\nsum by(service_name) (rate(otelcol_receiver_accepted_spans{}[$__interval]))\n, \"id\", \"processor\", \"dummynode\", \"\")\n, \"title\", \"processor\", \"dummynode\", \"\")\n\n\n\nor\nlabel_replace(label_replace(\n(rate(otelcol_processor_batch_batch_send_size_count{}[$__interval]))\n, \"id\", \"$0\", \"processor\", \".*\")\n, \"title\", \"$0\", \"processor\", \".*\")\n\n\n\n\n\nor\nlabel_replace(label_replace(\nsum (rate(otelcol_exporter_sent_metric_points{}[$__interval]))\n, \"id\", \"exporter\", \"dummynode\", \"\")\n, \"title\", \"exporter\", \"dummynode\", \"\")\n\nor\nlabel_replace(label_replace(\nsum by(exporter) (rate(otelcol_exporter_sent_metric_points{}[$__interval]))\n, \"id\", \"$0\", \"exporter\", \".*\")\n, \"title\", \"$0\", \"exporter\", \".*\")",
+          "expr": "\nlabel_join(label_join(\n(rate(otelcol_receiver_accepted_metric_points_total{}[$__interval]))\n, \"id\", \"\", \"transport\", \"receiver\")\n, \"title\", \"\", \"transport\", \"receiver\")\n\nor\n\nlabel_replace(label_replace(\nsum by(service_name) (rate(otelcol_receiver_accepted_spans_total{}[$__interval]))\n, \"id\", \"processor\", \"dummynode\", \"\")\n, \"title\", \"processor\", \"dummynode\", \"\")\n\n\n\nor\nlabel_replace(label_replace(\n(rate(otelcol_processor_batch_batch_send_size_count{}[$__interval]))\n, \"id\", \"$0\", \"processor\", \".*\")\n, \"title\", \"$0\", \"processor\", \".*\")\n\n\n\n\n\nor\nlabel_replace(label_replace(\nsum (rate(otelcol_exporter_sent_metric_points_total{}[$__interval]))\n, \"id\", \"exporter\", \"dummynode\", \"\")\n, \"title\", \"exporter\", \"dummynode\", \"\")\n\nor\nlabel_replace(label_replace(\nsum by(exporter) (rate(otelcol_exporter_sent_metric_points_total{}[$__interval]))\n, \"id\", \"$0\", \"exporter\", \".*\")\n, \"title\", \"$0\", \"exporter\", \".*\")",
           "format": "table",
           "instant": true,
           "legendFormat": "__auto",
@@ -1211,7 +1288,7 @@
           },
           "editorMode": "code",
           "exemplar": false,
-          "expr": "label_join(\nlabel_replace(label_join(\n(rate(otelcol_receiver_accepted_metric_points{}[$__interval]))\n\n,\"source\",\"\",\"transport\",\"receiver\")\n,\"target\",\"processor\",\"\",\"\")\n,\"id\",\"-\",\"source\",\"target\")\n\n\nor\n\nlabel_join(\nlabel_replace(label_replace(\n(rate(otelcol_processor_batch_batch_send_size_count{}[$__interval]))\n,\"source\",\"processor\",\"\",\"\")\n,\"target\",\"$0\",\"processor\",\".*\")\n,\"id\",\"-\",\"source\",\"target\")\n\n\n\n\n\nor\n\n\nlabel_join(\nlabel_replace(label_replace(\n(rate(otelcol_processor_batch_batch_send_size_count{}[$__interval]))\n,\"source\",\"$0\",\"processor\",\".*\")\n,\"target\",\"exporter\",\"\",\"\")\n,\"id\",\"-\",\"source\",\"target\")\n\nor\nlabel_join(\nlabel_replace(label_replace(\n(rate(otelcol_exporter_sent_metric_points{}[$__interval]))\n,\"source\",\"exporter\",\"\",\"\")\n,\"target\",\"$0\",\"exporter\",\".*\")\n,\"id\",\"-\",\"source\",\"target\")",
+          "expr": "label_join(\nlabel_replace(label_join(\n(rate(otelcol_receiver_accepted_metric_points_total{}[$__interval]))\n\n,\"source\",\"\",\"transport\",\"receiver\")\n,\"target\",\"processor\",\"\",\"\")\n,\"id\",\"-\",\"source\",\"target\")\n\n\nor\n\nlabel_join(\nlabel_replace(label_replace(\n(rate(otelcol_processor_batch_batch_send_size_count{}[$__interval]))\n,\"source\",\"processor\",\"\",\"\")\n,\"target\",\"$0\",\"processor\",\".*\")\n,\"id\",\"-\",\"source\",\"target\")\n\n\n\n\n\nor\n\n\nlabel_join(\nlabel_replace(label_replace(\n(rate(otelcol_processor_batch_batch_send_size_count{}[$__interval]))\n,\"source\",\"$0\",\"processor\",\".*\")\n,\"target\",\"exporter\",\"\",\"\")\n,\"id\",\"-\",\"source\",\"target\")\n\nor\nlabel_join(\nlabel_replace(label_replace(\n(rate(otelcol_exporter_sent_metric_points_total{}[$__interval]))\n,\"source\",\"exporter\",\"\",\"\")\n,\"target\",\"$0\",\"exporter\",\".*\")\n,\"id\",\"-\",\"source\",\"target\")",
           "format": "table",
           "hide": false,
           "instant": true,
@@ -1220,7 +1297,7 @@
           "refId": "edges"
         }
       ],
-      "transformations": [],
+      "title": "",
       "type": "nodeGraph"
     },
     {
@@ -1240,8 +1317,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "text",
-                "value": null
+                "color": "text"
               }
             ]
           },
@@ -1253,7 +1329,7 @@
         "h": 5,
         "w": 5,
         "x": 3,
-        "y": 37
+        "y": 39
       },
       "id": 26,
       "options": {
@@ -1261,6 +1337,7 @@
         "graphMode": "area",
         "justifyMode": "auto",
         "orientation": "horizontal",
+        "percentChangeColorMode": "standard",
         "reduceOptions": {
           "calcs": [
             "lastNotNull"
@@ -1268,9 +1345,11 @@
           "fields": "",
           "values": false
         },
-        "textMode": "auto"
+        "showPercentChange": false,
+        "textMode": "auto",
+        "wideLayout": true
       },
-      "pluginVersion": "9.1.0",
+      "pluginVersion": "11.3.0",
       "targets": [
         {
           "datasource": {
@@ -1278,7 +1357,7 @@
             "uid": "webstore-metrics"
           },
           "editorMode": "code",
-          "expr": "sum(rate(otelcol_receiver_accepted_metric_points{}[$__rate_interval])) by (receiver,transport)",
+          "expr": "sum(rate(otelcol_receiver_accepted_metric_points_total{}[$__rate_interval])) by (receiver,transport)",
           "legendFormat": "{{receiver}}-{{transport}}",
           "range": true,
           "refId": "A"
@@ -1303,8 +1382,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "text",
-                "value": null
+                "color": "text"
               }
             ]
           }
@@ -1315,10 +1393,12 @@
         "h": 5,
         "w": 3,
         "x": 8,
-        "y": 37
+        "y": 39
       },
       "id": 27,
       "options": {
+        "minVizHeight": 75,
+        "minVizWidth": 75,
         "orientation": "auto",
         "reduceOptions": {
           "calcs": [
@@ -1328,9 +1408,10 @@
           "values": false
         },
         "showThresholdLabels": false,
-        "showThresholdMarkers": true
+        "showThresholdMarkers": true,
+        "sizing": "auto"
       },
-      "pluginVersion": "9.1.0",
+      "pluginVersion": "11.3.0",
       "targets": [
         {
           "datasource": {
@@ -1338,7 +1419,7 @@
             "uid": "webstore-metrics"
           },
           "editorMode": "code",
-          "expr": "sum(rate(otelcol_receiver_accepted_metric_points{}[$__rate_interval])) ",
+          "expr": "sum(rate(otelcol_receiver_accepted_metric_points_total{}[$__rate_interval])) ",
           "legendFormat": "{{receiver}}-{{transport}}",
           "range": true,
           "refId": "A"
@@ -1362,8 +1443,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "#EAB839",
@@ -1379,7 +1459,7 @@
         "h": 5,
         "w": 5,
         "x": 11,
-        "y": 37
+        "y": 39
       },
       "id": 28,
       "options": {
@@ -1387,6 +1467,7 @@
         "graphMode": "area",
         "justifyMode": "auto",
         "orientation": "horizontal",
+        "percentChangeColorMode": "standard",
         "reduceOptions": {
           "calcs": [
             "lastNotNull"
@@ -1394,10 +1475,12 @@
           "fields": "",
           "values": false
         },
+        "showPercentChange": false,
         "text": {},
-        "textMode": "auto"
+        "textMode": "auto",
+        "wideLayout": true
       },
-      "pluginVersion": "9.1.0",
+      "pluginVersion": "11.3.0",
       "targets": [
         {
           "datasource": {
@@ -1430,8 +1513,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "text",
-                "value": null
+                "color": "text"
               }
             ]
           }
@@ -1442,10 +1524,12 @@
         "h": 5,
         "w": 3,
         "x": 16,
-        "y": 37
+        "y": 39
       },
       "id": 29,
       "options": {
+        "minVizHeight": 75,
+        "minVizWidth": 75,
         "orientation": "auto",
         "reduceOptions": {
           "calcs": [
@@ -1455,9 +1539,10 @@
           "values": false
         },
         "showThresholdLabels": false,
-        "showThresholdMarkers": true
+        "showThresholdMarkers": true,
+        "sizing": "auto"
       },
-      "pluginVersion": "9.1.0",
+      "pluginVersion": "11.3.0",
       "targets": [
         {
           "datasource": {
@@ -1466,7 +1551,7 @@
           },
           "editorMode": "code",
           "exemplar": false,
-          "expr": "sum(rate(otelcol_exporter_sent_metric_points{}[$__rate_interval])) ",
+          "expr": "sum(rate(otelcol_exporter_sent_metric_points_total{}[$__rate_interval])) ",
           "format": "time_series",
           "instant": false,
           "legendFormat": "{{processor}}",
@@ -1493,8 +1578,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "text",
-                "value": null
+                "color": "text"
               }
             ]
           },
@@ -1506,7 +1590,7 @@
         "h": 5,
         "w": 5,
         "x": 19,
-        "y": 37
+        "y": 39
       },
       "id": 16,
       "options": {
@@ -1514,6 +1598,7 @@
         "graphMode": "area",
         "justifyMode": "auto",
         "orientation": "horizontal",
+        "percentChangeColorMode": "standard",
         "reduceOptions": {
           "calcs": [
             "lastNotNull"
@@ -1521,9 +1606,11 @@
           "fields": "",
           "values": false
         },
-        "textMode": "auto"
+        "showPercentChange": false,
+        "textMode": "auto",
+        "wideLayout": true
       },
-      "pluginVersion": "9.1.0",
+      "pluginVersion": "11.3.0",
       "targets": [
         {
           "datasource": {
@@ -1532,7 +1619,7 @@
           },
           "editorMode": "code",
           "exemplar": false,
-          "expr": "sum(rate(otelcol_exporter_sent_metric_points{}[$__rate_interval])) by (exporter) ",
+          "expr": "sum(rate(otelcol_exporter_sent_metric_points_total{}[$__rate_interval])) by (exporter) ",
           "format": "time_series",
           "instant": false,
           "legendFormat": "{{processor}}",
@@ -1559,8 +1646,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "text",
-                "value": null
+                "color": "text"
               }
             ]
           },
@@ -1572,7 +1658,7 @@
         "h": 3,
         "w": 5,
         "x": 3,
-        "y": 42
+        "y": 44
       },
       "id": 47,
       "options": {
@@ -1580,6 +1666,7 @@
         "graphMode": "area",
         "justifyMode": "auto",
         "orientation": "horizontal",
+        "percentChangeColorMode": "standard",
         "reduceOptions": {
           "calcs": [
             "lastNotNull"
@@ -1587,9 +1674,11 @@
           "fields": "",
           "values": false
         },
-        "textMode": "auto"
+        "showPercentChange": false,
+        "textMode": "auto",
+        "wideLayout": true
       },
-      "pluginVersion": "9.1.0",
+      "pluginVersion": "11.3.0",
       "targets": [
         {
           "datasource": {
@@ -1597,7 +1686,7 @@
             "uid": "webstore-metrics"
           },
           "editorMode": "code",
-          "expr": "sum(rate(otelcol_receiver_refused_metric_points{}[$__rate_interval])) by (receiver,transport)",
+          "expr": "sum(rate(otelcol_receiver_refused_metric_points_total{}[$__rate_interval])) by (receiver,transport)",
           "legendFormat": "{{receiver}}-{{transport}}",
           "range": true,
           "refId": "A"
@@ -1622,8 +1711,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "text",
-                "value": null
+                "color": "text"
               }
             ]
           }
@@ -1634,10 +1722,12 @@
         "h": 3,
         "w": 3,
         "x": 8,
-        "y": 42
+        "y": 44
       },
       "id": 48,
       "options": {
+        "minVizHeight": 75,
+        "minVizWidth": 75,
         "orientation": "auto",
         "reduceOptions": {
           "calcs": [
@@ -1647,9 +1737,10 @@
           "values": false
         },
         "showThresholdLabels": false,
-        "showThresholdMarkers": true
+        "showThresholdMarkers": true,
+        "sizing": "auto"
       },
-      "pluginVersion": "9.1.0",
+      "pluginVersion": "11.3.0",
       "targets": [
         {
           "datasource": {
@@ -1657,7 +1748,7 @@
             "uid": "webstore-metrics"
           },
           "editorMode": "code",
-          "expr": "sum(rate(otelcol_receiver_refused_metric_points{}[$__rate_interval])) ",
+          "expr": "sum(rate(otelcol_receiver_refused_metric_points_total{}[$__rate_interval])) ",
           "legendFormat": "{{receiver}}-{{transport}}",
           "range": true,
           "refId": "A"
@@ -1682,8 +1773,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "text",
-                "value": null
+                "color": "text"
               }
             ]
           }
@@ -1694,10 +1784,12 @@
         "h": 3,
         "w": 3,
         "x": 16,
-        "y": 42
+        "y": 44
       },
       "id": 49,
       "options": {
+        "minVizHeight": 75,
+        "minVizWidth": 75,
         "orientation": "auto",
         "reduceOptions": {
           "calcs": [
@@ -1707,9 +1799,10 @@
           "values": false
         },
         "showThresholdLabels": false,
-        "showThresholdMarkers": true
+        "showThresholdMarkers": true,
+        "sizing": "auto"
       },
-      "pluginVersion": "9.1.0",
+      "pluginVersion": "11.3.0",
       "targets": [
         {
           "datasource": {
@@ -1718,7 +1811,7 @@
           },
           "editorMode": "code",
           "exemplar": false,
-          "expr": "sum(rate(otelcol_exporter_send_failed_metric_points{}[$__rate_interval])) ",
+          "expr": "sum(rate(otelcol_exporter_send_failed_metric_points_total{}[$__rate_interval])) ",
           "format": "time_series",
           "instant": false,
           "legendFormat": "{{processor}}",
@@ -1745,8 +1838,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "text",
-                "value": null
+                "color": "text"
               }
             ]
           },
@@ -1758,7 +1850,7 @@
         "h": 3,
         "w": 5,
         "x": 19,
-        "y": 42
+        "y": 44
       },
       "id": 50,
       "options": {
@@ -1766,6 +1858,7 @@
         "graphMode": "area",
         "justifyMode": "auto",
         "orientation": "horizontal",
+        "percentChangeColorMode": "standard",
         "reduceOptions": {
           "calcs": [
             "lastNotNull"
@@ -1773,9 +1866,11 @@
           "fields": "",
           "values": false
         },
-        "textMode": "auto"
+        "showPercentChange": false,
+        "textMode": "auto",
+        "wideLayout": true
       },
-      "pluginVersion": "9.1.0",
+      "pluginVersion": "11.3.0",
       "targets": [
         {
           "datasource": {
@@ -1784,7 +1879,7 @@
           },
           "editorMode": "code",
           "exemplar": false,
-          "expr": "sum(rate(otelcol_exporter_send_failed_metric_points{}[$__rate_interval])) by (exporter)",
+          "expr": "sum(rate(otelcol_exporter_send_failed_metric_points_total{}[$__rate_interval])) by (exporter)",
           "format": "time_series",
           "instant": false,
           "legendFormat": "{{processor}}",
@@ -1801,7 +1896,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 45
+        "y": 47
       },
       "id": 35,
       "panels": [],
@@ -1825,8 +1920,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "light-blue",
-                "value": null
+                "color": "light-blue"
               },
               {
                 "color": "semi-dark-red",
@@ -1858,10 +1952,12 @@
         "h": 9,
         "w": 3,
         "x": 0,
-        "y": 46
+        "y": 48
       },
       "id": 53,
       "options": {
+        "minVizHeight": 75,
+        "minVizWidth": 75,
         "orientation": "vertical",
         "reduceOptions": {
           "calcs": [
@@ -1871,9 +1967,10 @@
           "values": false
         },
         "showThresholdLabels": false,
-        "showThresholdMarkers": false
+        "showThresholdMarkers": false,
+        "sizing": "auto"
       },
-      "pluginVersion": "9.1.0",
+      "pluginVersion": "11.3.0",
       "targets": [
         {
           "datasource": {
@@ -1895,7 +1992,7 @@
             "uid": "webstore-metrics"
           },
           "editorMode": "code",
-          "expr": "(sum(rate(otelcol_exporter_sent_metric_points{exporter=\"prometheus\"}[$__rate_interval])) )",
+          "expr": "(sum(rate(otelcol_exporter_sent_metric_points_total{exporter=\"prometheus\"}[$__rate_interval])) )",
           "format": "time_series",
           "hide": false,
           "legendFormat": "__auto",
@@ -1954,8 +2051,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -1970,7 +2066,7 @@
         "h": 9,
         "w": 5,
         "x": 3,
-        "y": 46
+        "y": 48
       },
       "id": 37,
       "options": {
@@ -1978,6 +2074,7 @@
         "graphMode": "area",
         "justifyMode": "auto",
         "orientation": "horizontal",
+        "percentChangeColorMode": "standard",
         "reduceOptions": {
           "calcs": [
             "lastNotNull"
@@ -1985,9 +2082,11 @@
           "fields": "",
           "values": false
         },
-        "textMode": "value_and_name"
+        "showPercentChange": false,
+        "textMode": "value_and_name",
+        "wideLayout": true
       },
-      "pluginVersion": "9.1.0",
+      "pluginVersion": "11.3.0",
       "targets": [
         {
           "datasource": {
@@ -2023,8 +2122,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -2039,10 +2137,12 @@
         "h": 9,
         "w": 3,
         "x": 8,
-        "y": 46
+        "y": 48
       },
       "id": 42,
       "options": {
+        "minVizHeight": 75,
+        "minVizWidth": 75,
         "orientation": "horizontal",
         "reduceOptions": {
           "calcs": [
@@ -2052,9 +2152,10 @@
           "values": false
         },
         "showThresholdLabels": false,
-        "showThresholdMarkers": true
+        "showThresholdMarkers": true,
+        "sizing": "auto"
       },
-      "pluginVersion": "9.1.0",
+      "pluginVersion": "11.3.0",
       "targets": [
         {
           "datasource": {
@@ -2095,14 +2196,22 @@
         "type": "prometheus",
         "uid": "webstore-metrics"
       },
+      "fieldConfig": {
+        "defaults": {},
+        "overrides": []
+      },
       "gridPos": {
         "h": 9,
         "w": 8,
         "x": 11,
-        "y": 46
+        "y": 48
       },
       "id": 41,
-      "pluginVersion": "9.1.0",
+      "options": {
+        "edges": {},
+        "nodes": {}
+      },
+      "pluginVersion": "11.3.0",
       "targets": [
         {
           "datasource": {
@@ -2135,6 +2244,7 @@
           "refId": "edges"
         }
       ],
+      "title": "",
       "transformations": [
         {
           "id": "organize",
@@ -2150,16 +2260,16 @@
       "type": "nodeGraph"
     },
     {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "webstore-metrics"
-      },
       "description": "Sent by Exporter",
+      "fieldConfig": {
+        "defaults": {},
+        "overrides": []
+      },
       "gridPos": {
         "h": 9,
         "w": 5,
         "x": 19,
-        "y": 46
+        "y": 48
       },
       "id": 52,
       "options": {
@@ -2171,20 +2281,20 @@
         "content": "\n \n## Prometheus Config\n\n`evaluation_interval:` 30s\n\n`scrape_interval:` 5s",
         "mode": "markdown"
       },
-      "pluginVersion": "9.1.0",
+      "pluginVersion": "11.3.0",
+      "title": "",
       "type": "text"
     }
   ],
+  "preload": false,
   "refresh": false,
-  "schemaVersion": 37,
-  "style": "dark",
+  "schemaVersion": 40,
   "tags": [],
   "templating": {
     "list": [
       {
         "allValue": ".*",
         "current": {
-          "selected": false,
           "text": "0.70.0",
           "value": "0.70.0"
         },
@@ -2205,8 +2315,6 @@
         },
         "refresh": 1,
         "regex": "/.*service_version=\"(.*)\".*/",
-        "skipUrlSync": false,
-        "sort": 0,
         "type": "query"
       }
     ]
