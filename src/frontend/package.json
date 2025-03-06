@@ -12,8 +12,8 @@
     "drone:sign": "drone --server https://drone.grafana.net sign --save grafana/opentelemetry-demo .drone/drone.yml"
   },
   "dependencies": {
-    "@grafana/faro-web-sdk": "^1.5.1",
-    "@grafana/faro-web-tracing": "^1.5.1",
+    "@grafana/faro-web-sdk": "^1.9.0",
+    "@grafana/faro-web-tracing": "^1.9.0",
     "@bufbuild/protobuf": "^2.2.3",
     "@grpc/grpc-js": "1.12.6",
     "@openfeature/flagd-provider": "0.13.3",
